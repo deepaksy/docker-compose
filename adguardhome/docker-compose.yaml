@@ -1,14 +1,15 @@
-version: "3.3"
+version: '3.3'
 services:
         adguardhome:
                 image: adguard/adguardhome
                 container_name: adguardhome
-                ports:
-                        - 53:53/tcp
-                        - 53:53/udp
-                        - 853:853/tcp
-                        - 3000:3000/tcp
+               #ports:
                 volumes:
                         - /home/deepak/docker/volumes/adguardhome/work:/opt/adguardhome/work
                         - /home/deepak/docker/volumes/adguardhome/conf:/opt/adguardhome/conf
-                restart: unless-stopped
+                networks:
+                        asgard:
+                                ipv4_address: 192.168.1.250
+networks:
+        asgard:
+                external: true

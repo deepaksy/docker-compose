@@ -1,0 +1,24 @@
+version: '2'
+services:
+        mailserver:
+                image: mailserver/docker-mailserver:11.3.1
+                container_name: mailserver
+                hostname: iamengineer.co.in
+                ports:
+                        - "25:25"
+                        - "465:465"
+                        - "587:587"
+                        - "993:993"
+                volumes:
+                        - /home/deepak/docker/volumes/docker-data/dms/mail-data/:/var/mail/
+                        - /home/deepak/docker/volumes/docker-data/dms/mail-state/:/var/mail-state/
+                        - /home/deepak/docker/volumes/docker-data/dms/mail-logs/:/var/log/mail/
+                        - /home/deepak/docker/volumes/docker-data/dms/config/:/tmp/docker-mailserver/
+                        - /etc/localtime:/etc/localtime:ro
+                environment:
+                        - ENABLE_PSPAMD=1
+                        - ENABLE_CLAMAV=1
+                        - ENABLE_FAIL2BAN=1
+                cap_add:
+                        - NET_ADMIN
+                restart: always
